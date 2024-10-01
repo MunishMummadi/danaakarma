@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 require('dotenv').config();
 
-// 创建数据库连接池配置
+
 const poolConfig = {
   host: process.env.HOST,
   user: process.env.ROOT,
@@ -12,7 +12,7 @@ const poolConfig = {
 
 const pool = mysql.createPool(poolConfig);
 
-// 通用查询函数
+
 const query = (sql, values) => {
   return new Promise((resolve, reject) => {
     pool.query(sql, values, (err, results) => {
@@ -26,7 +26,7 @@ const query = (sql, values) => {
   });
 };
 
-// 数据库操作函数
+
 const dbOperations = {
   allFundraiser: (filters = {}) => {
     let sql = `
