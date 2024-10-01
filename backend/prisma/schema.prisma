@@ -1,0 +1,30 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Category {
+  id          Int          @id @default(autoincrement()) @map("CATEGORY_ID")
+  name        String       @map("NAME")
+  fundraisers Fundraiser[]
+
+  @@map("CATEGORY")
+}
+
+model Fundraiser {
+  id              Int       @id @default(autoincrement()) @map("FUNDRAISER_ID")
+  organizer       String    @map("ORGANIZER")
+  caption         String    @map("CAPTION")
+  targetFunding   Decimal   @map("TARGET_FUNDING")
+  currentFunding  Decimal   @map("CURRENT_FUNDING")
+  city            String    @map("CITY")
+  active          Boolean   @map("ACTIVE")
+  categoryId      Int?      @map("CATEGORY_ID")
+  category        Category? @relation(fields: [categoryId], references: [id])
+
+  @@map("FUNDRAISER")
+}
